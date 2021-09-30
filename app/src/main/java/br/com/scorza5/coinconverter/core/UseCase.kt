@@ -1,4 +1,4 @@
-package br.com.dio.coinconverter.core
+package br.com.scorza5.coinconverter.core
 
 import kotlinx.coroutines.flow.Flow
 

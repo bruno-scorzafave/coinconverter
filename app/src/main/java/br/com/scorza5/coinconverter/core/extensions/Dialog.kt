@@ -1,9 +1,9 @@
-package br.com.dio.coinconverter.core.extensions
+package br.com.scorza5.coinconverter.core.extensions
 
 import android.content.Context
 import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
-import br.com.dio.coinconverter.R
+import br.com.scorza5.coinconverter.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 fun Context.createDialog(block: MaterialAlertDialogBuilder.() -> Unit = {}): AlertDialog {

@@ -1,4 +1,4 @@
-package br.com.dio.coinconverter.core.extensions
+package br.com.scorza5.coinconverter.core.extensions
 
 import android.app.Activity
 import android.view.View
