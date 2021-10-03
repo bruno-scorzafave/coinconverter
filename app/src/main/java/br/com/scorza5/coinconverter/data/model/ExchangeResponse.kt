@@ -12,5 +12,7 @@ data class ExchangeResponseValue (
     val code: String,
     val codein: String,
     val name: String,
-    val bid: Double
+    val bid: Double,
+    var result:Double = 1.00,
+    var exchangeValue: Double = 1.00
 )

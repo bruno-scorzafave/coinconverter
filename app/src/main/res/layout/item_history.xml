@@ -13,7 +13,18 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text = "Dolár Americano/Real Brasileiro"/>
+        android:textSize="16sp"
+        tools:text = "USD/BRL"/>
+
+    <TextView
+        android:id="@+id/tv_calculation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@id/tv_value"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="@dimen/layout_half_padding"
+        android:textSize="14sp"
+        tools:text="$10.00 x 5.10 ="/>
 
     <TextView
         android:id="@+id/tv_value"
@@ -22,6 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textStyle="bold"
+        android:textSize="14sp"
         tools:text="R$22,00"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

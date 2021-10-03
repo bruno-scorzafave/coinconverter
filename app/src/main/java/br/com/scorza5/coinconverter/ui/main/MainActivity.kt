@@ -71,11 +71,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bindingAdapters() {
-        val list = Coin.values()
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
+        val listTo = Coin.values().toMutableList()
+        listTo.remove(Coin.USD)
+        val listFrom = Coin.values().toMutableList()
+        listFrom.remove(Coin.BRL)
+        val adapterTo = ArrayAdapter(this, android.R.layout.simple_list_item_1, listTo)
+        val adapterFrom = ArrayAdapter(this, android.R.layout.simple_list_item_1, listFrom)
 
-        binding.tvFrom.setAdapter(adapter)
-        binding.tvTo.setAdapter(adapter)
+        binding.tvFrom.setAdapter(adapterFrom)
+        binding.tvTo.setAdapter(adapterTo)
 
         binding.tvFrom.setText(Coin.USD.name, false)
         binding.tvTo.setText(Coin.BRL.name, false)
@@ -110,7 +114,10 @@ class MainActivity : AppCompatActivity() {
         binding.btnSave.setOnClickListener {
             val value = viewModel.state.value
             (value as? MainViewModel.State.Success)?.let {
-                viewModel.saveExchange(it.exchange)
+                viewModel.saveExchange(it.exchange.copy(
+                    result = it.exchange.bid * binding.tilValue.text.toDouble(),
+                    exchangeValue = binding.tilValue.text.toDouble()
+                ))
             }
         }
     }

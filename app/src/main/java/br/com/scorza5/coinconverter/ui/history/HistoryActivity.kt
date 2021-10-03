@@ -17,17 +17,14 @@ class HistoryActivity: AppCompatActivity() {
     private val dialog by lazy { createProgressDialog() }
     private val binding by lazy { ActivityHistoryBinding.inflate(layoutInflater) }
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         binding.rvHistory.adapter = adapter
         binding.rvHistory.addItemDecoration(
             DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL)
         )
-
-        setSupportActionBar(binding.toolbarHist)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         bindObserve()
 

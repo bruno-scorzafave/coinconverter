@@ -29,9 +29,11 @@ class HistoryListAdapter: ListAdapter<ExchangeResponseValue, HistoryListAdapter.
         private val binding: ItemHistoryBinding
     ):RecyclerView.ViewHolder(binding.root){
         fun bind(item: ExchangeResponseValue){
-            binding.tvName.text = item.name
-            val coin = Coin.getByName(item.codein)
-            binding.tvValue.text = item.bid.formatCurrency(coin.locale)
+            binding.tvName.text = "${item.code}/${item.codein}"
+            val coinTo = Coin.getByName(item.codein)
+            val coinFrom = Coin.getByName(item.code)
+            binding.tvCalculation.text = "${item.exchangeValue.formatCurrency(coinFrom.locale)} x ${"%.2f".format(item.bid)} ="
+            binding.tvValue.text = "${item.result.formatCurrency(coinTo.locale)}"
         }
     }
 }
