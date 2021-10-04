@@ -44,9 +44,9 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/gl_start"
-        app:layout_constraintEnd_toStartOf="@id/til_to"
+        app:layout_constraintEnd_toStartOf="@id/btn_swap"
         app:layout_constraintTop_toBottomOf="@id/til_value"
-        android:layout_marginEnd="@dimen/layout_half_padding">
+        android:layout_marginEnd="@dimen/layout_padding">
         <androidx.appcompat.widget.AppCompatAutoCompleteTextView
             android:id="@+id/tv_from"
             android:hint="@string/converter"
@@ -56,8 +56,22 @@
             android:paddingStart="@dimen/layout_half_padding"
             android:focusable="false"
             android:paddingTop="@dimen/layout_plus_padding"
-            android:paddingBottom="@dimen/layout_half_padding"/>
+            android:paddingBottom="@dimen/layout_half_padding"
+            android:textSize="16sp"/>
     </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageButton
+        android:id="@+id/btn_swap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/til_from"
+        app:layout_constraintEnd_toStartOf="@id/til_to"
+        app:layout_constraintTop_toTopOf="@id/til_from"
+        app:layout_constraintBottom_toBottomOf="@id/til_from"
+        android:src="@drawable/ic_swap"
+        android:background="@android:color/transparent"
+        android:tint="@color/design_default_color_primary"
+        android:padding="0dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/til_to"
@@ -65,10 +79,10 @@
         android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/til_from"
+        app:layout_constraintStart_toEndOf="@id/btn_swap"
         app:layout_constraintEnd_toEndOf="@id/gl_end"
         app:layout_constraintTop_toBottomOf="@id/til_value"
-        android:layout_marginStart="@dimen/layout_half_padding">
+        android:layout_marginStart="@dimen/layout_padding">
         <androidx.appcompat.widget.AppCompatAutoCompleteTextView
             android:id="@+id/tv_to"
             android:hint="@string/to"
@@ -78,7 +92,8 @@
             android:paddingTop="@dimen/layout_plus_padding"
             android:paddingBottom="@dimen/layout_half_padding"
             android:inputType="none"
-            android:focusable="false"/>
+            android:focusable="false"
+            android:textSize="16sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton

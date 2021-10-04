@@ -71,18 +71,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bindingAdapters() {
-        val listTo = Coin.values().toMutableList()
-        listTo.remove(Coin.USD)
-        val listFrom = Coin.values().toMutableList()
-        listFrom.remove(Coin.BRL)
-        val adapterTo = ArrayAdapter(this, android.R.layout.simple_list_item_1, listTo)
-        val adapterFrom = ArrayAdapter(this, android.R.layout.simple_list_item_1, listFrom)
-
-        binding.tvFrom.setAdapter(adapterFrom)
-        binding.tvTo.setAdapter(adapterTo)
-
-        binding.tvFrom.setText(Coin.USD.name, false)
-        binding.tvTo.setText(Coin.BRL.name, false)
+        setLists(Coin.USD, Coin.BRL)
     }
 
     private fun bindingListeners() {
@@ -96,20 +85,14 @@ class MainActivity : AppCompatActivity() {
             viewModel.getExchangeValue(search)
         }
         binding.tvTo.setOnItemClickListener { parent, _, position, _ ->
-            val selected = parent.getItemAtPosition(position)
-            val newList = Coin.values().toMutableList()
-            newList.remove(selected)
-
-            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, newList)
-            binding.tvFrom.setAdapter(adapter)
+            val toSelected = parent.getItemAtPosition(position) as Coin
+            val fromSelected = binding.tvFrom.text as Coin
+            setLists(fromSelected, toSelected)
         }
         binding.tvFrom.setOnItemClickListener { parent, _, position, _ ->
-            val selected = parent.getItemAtPosition(position)
-            val newList = Coin.values().toMutableList()
-            newList.remove(selected)
-
-            val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, newList)
-            binding.tvTo.setAdapter(adapter)
+            val fromSelected = parent.getItemAtPosition(position) as Coin
+            val toSelected = binding.tvTo.text as Coin
+            setLists(fromSelected, toSelected)
         }
         binding.btnSave.setOnClickListener {
             val value = viewModel.state.value
@@ -120,6 +103,27 @@ class MainActivity : AppCompatActivity() {
                 ))
             }
         }
+        binding.btnSwap.setOnClickListener {
+            // The coin need to go from from to to and to to from = swap
+            val coinFrom = Coin.values().filter { it.name == binding.tvTo.text.toString() }
+            val coinTo = Coin.values().filter { it.name == binding.tvFrom.text.toString() }
+            setLists(coinFrom[0], coinTo[0])
+        }
+    }
+
+    private fun setLists(fromSelected: Coin, toSelected: Coin){
+        val listTo = Coin.values().toMutableList()
+        listTo.remove(fromSelected)
+        val listFrom = Coin.values().toMutableList()
+        listFrom.remove(toSelected)
+
+        val adapterTo = ArrayAdapter(this, android.R.layout.simple_list_item_1, listTo)
+        binding.tvTo.setAdapter(adapterTo)
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, listFrom)
+        binding.tvFrom.setAdapter(adapter)
+
+        binding.tvFrom.setText(fromSelected.toString(), false)
+        binding.tvTo.setText(toSelected.toString(), false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
