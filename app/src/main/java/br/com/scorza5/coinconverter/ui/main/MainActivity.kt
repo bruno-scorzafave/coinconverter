@@ -86,13 +86,13 @@ class MainActivity : AppCompatActivity() {
         }
         binding.tvTo.setOnItemClickListener { parent, _, position, _ ->
             val toSelected = parent.getItemAtPosition(position) as Coin
-            val fromSelected = binding.tvFrom.text as Coin
-            setLists(fromSelected, toSelected)
+            val fromSelected = Coin.values().filter { it.name == binding.tvFrom.text.toString() }
+            setLists(fromSelected[0], toSelected)
         }
         binding.tvFrom.setOnItemClickListener { parent, _, position, _ ->
             val fromSelected = parent.getItemAtPosition(position) as Coin
-            val toSelected = binding.tvTo.text as Coin
-            setLists(fromSelected, toSelected)
+            val toSelected = Coin.values().filter { it.name == binding.tvTo.text.toString() }
+            setLists(fromSelected, toSelected[0])
         }
         binding.btnSave.setOnClickListener {
             val value = viewModel.state.value
