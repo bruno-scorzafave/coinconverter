@@ -2,12 +2,17 @@ package br.com.scorza5.coinconverter.ui.history
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
+import br.com.scorza5.coinconverter.R
 import br.com.scorza5.coinconverter.core.extensions.createDialog
 import br.com.scorza5.coinconverter.core.extensions.createProgressDialog
 import br.com.scorza5.coinconverter.databinding.ActivityHistoryBinding
 import br.com.scorza5.coinconverter.presentation.HistoryViewModel
+import br.com.scorza5.coinconverter.presentation.MainViewModel
+import okhttp3.internal.notify
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HistoryActivity: AppCompatActivity() {
@@ -47,5 +52,33 @@ class HistoryActivity: AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.history_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when(item.itemId){
+            R.id.all_delete -> {
+                val value = viewModel.state.value
+                (value as? HistoryViewModel.State.Success)?.let {
+                    if (it.list.isNotEmpty()) {
+                        viewModel.deleteList(it.list)
+                    }
+                }
+            }
+            R.id.last_delete -> {
+                val value = viewModel.state.value
+                (value as? HistoryViewModel.State.Success)?.let {
+                    if(it.list.isNotEmpty()){
+                        viewModel.deleteLast(it.list[it.list.lastIndex])
+                    }
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

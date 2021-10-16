@@ -34,6 +34,14 @@ class CoinRepositoryImpl(
         dao.save(exchangeResponseValue)
     }
 
+    override suspend fun deleteAll(list: List<ExchangeResponseValue>) {
+        dao.deleteAll(list)
+    }
+
+    override suspend fun deleteLast(erv: ExchangeResponseValue) {
+        dao.deleteLast(erv)
+    }
+
     override fun list(): Flow<List<ExchangeResponseValue>> {
         return dao.findAll()
     }
